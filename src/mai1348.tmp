@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkpqgffkp44bu"]
+
+[ext_resource type="Script" path="res://src/main.gd" id="1_fxxwn"]
+[ext_resource type="PackedScene" uid="uid://c6wfa64punoym" path="res://assets/test_map.tscn" id="4_6kcm5"]
+[ext_resource type="Script" path="res://src/Player.gd" id="4_gu6my"]
+[ext_resource type="Texture2D" uid="uid://c6mfs5yjoq16b" path="res://assets/Icons.png" id="4_j75du"]
+[ext_resource type="Script" path="res://src/Path.gd" id="5_0k4d2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pob5o"]
+atlas = ExtResource("4_j75du")
+region = Rect2(103, 1, 50, 48)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_fxxwn")
+
+[node name="TileMap" parent="." instance=ExtResource("4_6kcm5")]
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(302, 208)
+texture = SubResource("AtlasTexture_pob5o")
+script = ExtResource("4_gu6my")
+
+[node name="Path" type="Node2D" parent="."]
+script = ExtResource("5_0k4d2")

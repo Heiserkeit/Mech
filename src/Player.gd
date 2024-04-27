@@ -4,6 +4,7 @@ extends Sprite2D
 @onready var parent : Node = $".."
 @onready var Path : Node = $"../Path"
 var map_position: Vector2i
+var mech_star: Mech_Star
 
 var selectic: Node 
 
@@ -13,6 +14,8 @@ func _ready() -> void:
 	global_position = tile_map.map_to_local(map_position)
 	pass # Replace with function body.
 
+func set_up(mech_star_IM: Mech_Star):
+	mech_star = mech_star_IM
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -46,7 +49,9 @@ func _input(event: InputEvent) -> void:
 		global_position = tile_map.map_to_local(map_position)
 	elif event.is_action_pressed("Aktion a"):
 		if selectic != null:
-			Path.set_path(parent.crate_path(selectic.get_map_position() , map_position))
+			var path = mech_star.crate_weight_path(selectic.get_map_position() , map_position)
+			print(path.weight)
+			Path.set_path(path.path)
 			if selectic is Mech:
-				selectic.move_path(parent.crate_path(selectic.get_map_position() , map_position))
+				selectic.move_path(mech_star.crate_path(selectic.get_map_position() , map_position))
 			

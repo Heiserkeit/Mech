@@ -2,10 +2,11 @@ extends Node2D
 
 @export var mech_Szn = preload("res://src/mech.tscn")
 @onready var tile_map = $TileMap
+@onready var player = $Player
 var tile_map_inst
 var mech_list:Array[Mech] = []
-var Astar: AStar2D
 var tile_laver = 0
+var mech_star:Mech_Star
 	
 
 # Called when the node enters the scene tree for the first time.
@@ -27,7 +28,11 @@ func _ready() -> void:
 		add_child(mech_Object)
 		#mech_list.add(mech_Object)
 	
-	crate_A_star()
+	mech_star = Mech_Star.new()
+	mech_star.set_up(tile_map, tile_laver)
+	mech_star.crate_A_star()
+	
+	player.set_up(mech_star)
 	
 	
 
@@ -52,39 +57,7 @@ func _input(event: InputEvent) -> void:
 		#get_childs()
 		#get_mech()
 		pass
-		
-		
-func crate_A_star():
-	Astar = AStar2D.new()
-	var i:int = 0
-	var tile_date: TileData
-	var cell_position: Vector2i 
-	var nachber_cellen: Array[Vector2i]
-	
-	#Halle zellen aus der tielmap in A*
-	for cell in tile_map.get_used_cells(0):
-		tile_date =  tile_map.get_cell_tile_data(tile_laver, cell)#
-		
-		if tile_date.get_custom_data("walkable") == true:
-			Astar.add_point(i,cell)
-			i = i + 1
-		
-		
-	for cell_id in Astar.get_point_count():
-		cell_position = Astar.get_point_position(cell_id)
-		nachber_cellen = tile_map.get_surrounding_cells(cell_position)
-		for cell in nachber_cellen:
-			if tile_map.get_cell_tile_data(tile_laver, cell).get_custom_data("walkable") == true :
-				Astar.connect_points(cell_id, Astar.get_closest_point(cell))
-	
-	print(Astar.get_point_count())
-	print(Astar.get_point_connections(Astar.get_closest_point(Vector2i(4,3))))
-	print(tile_map.get_surrounding_cells(Vector2i(4,3)))
 	
 	
 func crate_path(map_position_start:Vector2i, map_position_end:Vector2i) -> PackedVector2Array:
-	var path = Astar.get_point_path(Astar.get_closest_point(map_position_start),Astar.get_closest_point(map_position_end))
-	print("2")
-	print(path)
-	return path
-	
+	return mech_star.crate_path(map_position_start, map_position_end)
