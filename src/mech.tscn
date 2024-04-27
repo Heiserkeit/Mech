@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://h0hcpqirt2ak"]
+
+[ext_resource type="Script" path="res://src/Mech.gd" id="1_0e7c7"]
+[ext_resource type="Texture2D" uid="uid://bs0d0n43dxbns" path="res://assets/charakter.png" id="2_2o8vr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfhqj"]
+atlas = ExtResource("2_2o8vr")
+region = Rect2(31, 1, 27, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_875we"]
+size = Vector2(22, 40)
+
+[node name="Mech" type="CharacterBody2D"]
+script = ExtResource("1_0e7c7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_lfhqj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_875we")
