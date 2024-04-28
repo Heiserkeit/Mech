@@ -11,6 +11,7 @@ var map_position:Vector2i = Vector2i()
 var move_map_position: Vector2
 var current_id_path: Array[Vector2i]
 var current_point_path: PackedVector2Array
+var cell_rotation = {"UR":30, "U": 90, "UL": 150, "OL": 210, "O": 270, "OR": 330} 
 
 func _input(event: InputEvent) -> void:
 	pass
