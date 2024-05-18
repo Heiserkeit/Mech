@@ -3,3 +3,4 @@ res://src/helper/Mech_Star.gd
 res://assets/test_map.tscn
 res://src/types/Weighted_Path.gd
 res://src/Player.gd
+res://src/Mech.gd
