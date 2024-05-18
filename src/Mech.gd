@@ -27,7 +27,35 @@ func _physics_process(delta: float) -> void:
 		else:
 			#print("move_map_position: ",move_map_position)
 			#print("current_id_path: ",current_id_path)
+			
+			var current_postionan_id = tile_map.local_to_map(move_map_position)
+			
+			# Rotation:
+			print(current_id_path.front().x - current_postionan_id.x)
+			print("current_id_path.pop_front().x : ", current_id_path.front().x )
+			print("current_postionan_id.x :", current_postionan_id.x)
+			print(current_id_path.front().y - current_postionan_id.y)
+			print("current_id_path.pop_front().y : ", current_id_path.front().y )
+			print("current_postionan_id.y :", current_postionan_id.y)
+			
+			if current_id_path.front().x - current_postionan_id.x < 0:
+				if current_id_path.front().y - current_postionan_id.y < 0:
+					rotation_degrees = cell_rotation["OL"]
+				elif current_id_path.front().y - current_postionan_id.y == 0:
+					rotation_degrees = cell_rotation["UL"]
+			elif current_id_path.front().x - current_postionan_id.x == 0:
+				if current_id_path.front().y - current_postionan_id.y > 0:
+					rotation_degrees = cell_rotation["U"]
+				elif current_id_path.front().y - current_postionan_id.y < 0:
+					rotation_degrees = cell_rotation["O"]
+			elif current_id_path.front().x - current_postionan_id.x > 0:
+				if current_id_path.front().y - current_postionan_id.y < 0:
+					rotation_degrees = cell_rotation["OR"]
+				elif current_id_path.front().y - current_postionan_id.y == 0:
+					rotation_degrees = cell_rotation["UR"]
+			
 			move_map_position = tile_map.map_to_local(current_id_path.pop_front())
+			
 			#print("move_map_position: ",move_map_position)
 			#print("current_id_path: ",current_id_path)
 	
